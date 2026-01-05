@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drugsafe.pp.notice.mapper.PstMapper">
+
+    <select id="getPst" parameterType="PstPVO" resultType="PstRVO" >
+        /* 대국민포털_게시물기본 조회 (PstMapper.getPst) */
+        SELECT
+             pst_sn
+            ,bbs_id
+            ,pst_ttl
+            ,pst_cn
+            ,pst_inq_cnt
+            ,pst_kogl_cprgt_type_cd
+            ,atch_file_id
+            ,thmb_id
+            ,ntc_yn
+            ,del_yn
+            ,wrtr_dept_nm
+            ,mdfr_dept_nm
+            ,rgtr_id
+            ,reg_dt
+            ,reg_prgrm_id
+            ,mdfr_id
+            ,mdfcn_dt
+            ,mdfcn_prgrm_id
+        FROM "KIDS_OWN"."TB_PP_M_PST"
+        WHERE 1=1
+        AND pst_sn = #{pstSn}
+    </select>
+
+    <insert id="insertPst" parameterType="PstPVO">
+        /* 대국민포털_게시물기본 입력 (PstMapper.insertPst) */
+        INSERT INTO "KIDS_OWN"."TB_PP_M_PST"
+        (
+             pst_sn
+            ,bbs_id
+            ,pst_ttl
+            ,pst_cn
+            ,pst_inq_cnt
+            ,pst_kogl_cprgt_type_cd
+            ,atch_file_id
+            ,thmb_id
+            ,ntc_yn
+            ,del_yn
+            ,wrtr_dept_nm
+            ,mdfr_dept_nm
+            ,rgtr_id
+            ,reg_dt
+            ,reg_prgrm_id
+            ,mdfr_id
+            ,mdfcn_dt
+            ,mdfcn_prgrm_id
+        )
+        VALUES
+        (
+             #{pstSn}
+            ,#{bbsId}
+            ,#{pstTtl}
+            ,#{pstCn}
+            ,#{pstInqCnt}
+            ,#{pstKoglCprgtTypeCd}
+            ,#{atchFileId}
+            ,#{thmbId}
+            ,#{ntcYn}
+            ,#{delYn}
+            ,#{wrtrDeptNm}
+            ,#{mdfrDeptNm}
+            ,#{rgtrId}
+            ,now()
+            ,#{regPrgrmId}
+            ,#{mdfrId}
+            ,now()
+            ,#{mdfcnPrgrmId}
+        )
+    </insert>
+
+    <update id="updatePst" parameterType="PstPVO">
+        /* 대국민포털_게시물기본 수정 (PstMapper.updatePst) */
+        UPDATE "KIDS_OWN"."TB_PP_M_PST"
+        SET
+             bbs_id = coalesce(#{bbsId}, bbs_id)
+            ,pst_ttl = coalesce(#{pstTtl}, pst_ttl)
+            ,pst_cn = coalesce(#{pstCn}, pst_cn)
+            ,pst_inq_cnt = coalesce(#{pstInqCnt}, pst_inq_cnt)
+            ,pst_kogl_cprgt_type_cd = coalesce(#{pstKoglCprgtTypeCd}, pst_kogl_cprgt_type_cd)
+            ,atch_file_id = coalesce(#{atchFileId}, atch_file_id)
+            ,thmb_id = coalesce(#{thmbId}, thmb_id)
+            ,ntc_yn = coalesce(#{ntcYn}, ntc_yn)
+            ,del_yn = coalesce(#{delYn}, del_yn)
+            ,wrtr_dept_nm = coalesce(#{wrtrDeptNm}, wrtr_dept_nm)
+            ,mdfr_dept_nm = coalesce(#{mdfrDeptNm}, mdfr_dept_nm)
+            ,mdfr_id = coalesce(#{mdfrId}, mdfr_id)
+            ,mdfcn_dt = now()
+            ,mdfcn_prgrm_id = coalesce(#{mdfcnPrgrmId}, mdfcn_prgrm_id)
+        WHERE 1=1
+        AND pst_sn = #{pstSn}
+    </update>
+
+    <insert id="savePst" parameterType="PstPVO">
+        /* 대국민포털_게시물기본 저장 (PstMapper.insertPst) */
+        INSERT INTO "KIDS_OWN"."TB_PP_M_PST"
+        (
+             pst_sn
+            ,bbs_id
+            ,pst_ttl
+            ,pst_cn
+            ,pst_inq_cnt
+            ,pst_kogl_cprgt_type_cd
+            ,atch_file_id
+            ,thmb_id
+            ,ntc_yn
+            ,del_yn
+            ,wrtr_dept_nm
+            ,mdfr_dept_nm
+            ,rgtr_id
+            ,reg_dt
+            ,reg_prgrm_id
+            ,mdfr_id
+            ,mdfcn_dt
+            ,mdfcn_prgrm_id
+        )
+        VALUES
+        (
+             #{pstSn}
+            ,#{bbsId}
+            ,#{pstTtl}
+            ,#{pstCn}
+            ,#{pstInqCnt}
+            ,#{pstKoglCprgtTypeCd}
+            ,#{atchFileId}
+            ,#{thmbId}
+            ,#{ntcYn}
+            ,#{delYn}
+            ,#{wrtrDeptNm}
+            ,#{mdfrDeptNm}
+            ,#{rgtrId}
+            ,now()
+            ,#{regPrgrmId}
+            ,#{mdfrId}
+            ,now()
+            ,#{mdfcnPrgrmId}
+        )
+        ON CONFLICT(pst_sn)
+        DO UPDATE SET
+             bbs_id = coalesce(excluded.bbs_id, "KIDS_OWN"."TB_PP_M_PST".bbs_id)
+            ,pst_ttl = coalesce(excluded.pst_ttl, "KIDS_OWN"."TB_PP_M_PST".pst_ttl)
+            ,pst_cn = coalesce(excluded.pst_cn, "KIDS_OWN"."TB_PP_M_PST".pst_cn)
+            ,pst_inq_cnt = coalesce(excluded.pst_inq_cnt, "KIDS_OWN"."TB_PP_M_PST".pst_inq_cnt)
+            ,pst_kogl_cprgt_type_cd = coalesce(excluded.pst_kogl_cprgt_type_cd, "KIDS_OWN"."TB_PP_M_PST".pst_kogl_cprgt_type_cd)
+            ,atch_file_id = coalesce(excluded.atch_file_id, "KIDS_OWN"."TB_PP_M_PST".atch_file_id)
+            ,thmb_id = coalesce(excluded.thmb_id, "KIDS_OWN"."TB_PP_M_PST".thmb_id)
+            ,ntc_yn = coalesce(excluded.ntc_yn, "KIDS_OWN"."TB_PP_M_PST".ntc_yn)
+            ,del_yn = coalesce(excluded.del_yn, "KIDS_OWN"."TB_PP_M_PST".del_yn)
+            ,wrtr_dept_nm = coalesce(excluded.wrtr_dept_nm, "KIDS_OWN"."TB_PP_M_PST".wrtr_dept_nm)
+            ,mdfr_dept_nm = coalesce(excluded.mdfr_dept_nm, "KIDS_OWN"."TB_PP_M_PST".mdfr_dept_nm)
+            ,mdfr_id = coalesce(excluded.mdfr_id, "KIDS_OWN"."TB_PP_M_PST".mdfr_id)
+            ,mdfcn_dt = now()
+            ,mdfcn_prgrm_id = coalesce(excluded.mdfcn_prgrm_id, "KIDS_OWN"."TB_PP_M_PST".mdfcn_prgrm_id)
+    </insert>
+
+    <delete id="deletePst" parameterType="PstDVO">
+        /* 대국민포털_게시물기본 삭제 (PstMapper.deletePst) */
+        DELETE FROM "KIDS_OWN"."TB_PP_M_PST"
+        WHERE 1=1
+        AND pst_sn = #{pstSn}
+    </delete>
+
+</mapper>

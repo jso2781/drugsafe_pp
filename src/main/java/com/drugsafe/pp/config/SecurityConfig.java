@@ -1,0 +1,36 @@
+package com.drugsafe.pp.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable()
+            .cors();
+
+        http
+            .authorizeHttpRequests()
+            
+                // Any-ID 정적 리소스/설정
+                .antMatchers("/anyid/**", "/config/**").permitAll()
+                // Auth API
+                .antMatchers(HttpMethod.POST, "/api/auth/anyid/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/auth/me").permitAll()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .anyRequest().permitAll()
+            .and()
+            .formLogin().disable()
+            .httpBasic().disable();
+
+        return http.build();
+    }
+}
