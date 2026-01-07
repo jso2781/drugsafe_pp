@@ -8,6 +8,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class PstPVO
 {
     /**
+     * 게시판아이디
+     */
+    @Schema(description = "게시판아이디", type = "String")
+    private String bbsId;	
+	
+    /**
      * 게시물일련번호
      */
     @Schema(description = "게시물일련번호", type = "BigInteger")
@@ -28,14 +34,18 @@ public class PstPVO
 	public BigInteger getPstSn() {
 		return pstSn;
 	}
+	public String getBbsId() {
+		return bbsId;
+	}
+	public void setBbsId(String bbsId) {
+		this.bbsId = bbsId;
+	}
 	public void setPstSn(BigInteger pstSn) {
 		this.pstSn = pstSn;
 	}
-
 	public String getSearchCnd() {
 		return searchCnd;
 	}
-
 	public void setSearchCnd(String searchCnd) {
 		this.searchCnd = searchCnd;
 	}
@@ -43,7 +53,6 @@ public class PstPVO
 	public String getSearchWrd() {
 		return searchWrd;
 	}
-
 	public void setSearchWrd(String searchWrd) {
 		this.searchWrd = searchWrd;
 	}
