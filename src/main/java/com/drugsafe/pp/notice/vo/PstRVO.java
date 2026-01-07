@@ -259,5 +259,7 @@ public class PstRVO
     {
         this.mdfcnPrgrmId = mdfcnPrgrmId;
     }
-
+    public void increaseInqCnt() {
+        this.pstInqCnt++;
+    }    
 }
