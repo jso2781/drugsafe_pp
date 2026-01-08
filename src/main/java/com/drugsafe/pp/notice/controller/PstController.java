@@ -19,14 +19,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "PstController", description = "대국민포털_게시물기본 관리")
 @RestController
-@RequestMapping(value="/api/notice")
+@RequestMapping(value="/api/pst/")
 public class PstController
 {
     @Autowired
     private PstService pstService;
    
     @Operation(summary = "대국민포털_게시물기본 목록 조회", description = "대국민포털_게시물기본 목록을 조회한다.")
-    @PostMapping(value="/selectPstList")
+	@PostMapping(value="/selectPstList")
     @ResponseBody
     public ResponseEntity<List<PstRVO>> selectPstList(@RequestBody PstPVO pstPVO)
     {
